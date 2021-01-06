@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="mp.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lobster&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>My Music</title>
+
+</head>
+<body>
+    <div class="main_container">
+        <div class="cont">
+            <h2 id="title">Ye raatein ye mausam</h2>
+            <div class="image_container">
+                <img src="https://i.ytimg.com/vi/gcW78DaHvUU/maxresdefault.jpg" alt="">
+        </div>
+        <audio src= "music\music_1.mp3" ></audio>
+        
+        <div class="controls">
+            <i class="fas fa-backward" id="prev" title="Previous"></i>
+            <i class="fas fa-play main_button" id="play" title="Play"></i>
+            <i class="fas fa-forward" id="next" title="Next"></i>
+        </div>
+    </div>
+    </div>
+</body>
+
+<script>
+
+    const music = document.querySelector('audio');
+const play= document.getElementById("play");
+const img= document.querySelector("img");
+const title= document.getElementById("title");
+const prev= document.getElementById("prev");
+const next= document.getElementById("next");
+
+let songs = [
+   
+    {
+    name:  "music_1",
+    title: 'Ye raatein ye mausam',
+    pic: "img_1",
+    },
+
+    {
+    name: "music_2",
+    title: 'Jaan Nissar',
+    pic: "img_2",
+    },
+    {
+    name:  "music_3",
+    title: 'Main Tumhara',
+    pic: "img_3",
+    },
+    {
+    name:  "music_4",
+    title: 'Naina',
+    pic: "img_4",
+    },
+    
+]; 
+
+let isplaying= false;
+let songindex = 0;
+
+const playmusic = () => {
+    isplaying= true;
+    music.play();
+    play.classList.replace("fa-play", "fa-pause");
+    img.classList.add("anime");
+};
+
+const pausemusic = () => {
+    isplaying= false;
+    music.pause();
+    play.classList.replace( "fa-pause" ,"fa-play");
+    img.classList.remove("anime");
+};
+play.addEventListener("click", () => {
+    isplaying ? pausemusic(): playmusic(); 
+})
+
+const load = (songs) => {
+    title.textContent = songs.title;
+    music.src = "music/" + songs.name + ".mp3";   
+    img.src= "pics/" + songs.pic + ".jpg" ;
+    
+};
+
+
+const nextsong = () => {
+ songindex = (songindex+1)%songs.length;
+ load(songs[songindex]);
+ playmusic();
+};
+
+const prevsong = () => {
+ songindex = (songindex - 1 + songs.length)%songs.length;
+ load(songs[songindex]);
+ playmusic();
+};
+
+next.addEventListener('click',nextsong);
+prev.addEventListener('click', prevsong);
+
+</script>
+
+
+
+</html>
